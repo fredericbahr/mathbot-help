@@ -1,0 +1,23 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - example_intent_1
+  - example_intent_2
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_goodbye:
+  - text: "Bye"
+
+actions:
+  - action_intent_1
+  - action_intent_2
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

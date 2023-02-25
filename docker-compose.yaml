@@ -1,0 +1,59 @@
+version: "3.5"
+
+services:
+  # Die Qanary Pipeline und Stardog der HTWK
+  # Register: http://localhost:40111/applications
+  # qanary-pipeline:
+  #   container_name: qanary-pipeline
+  #   image: qanary/qanary-pipeline:3.7.0
+  #   restart: always
+  #   networks:
+  #     - rasa-network
+  #   ports:
+  #     - "40111:40111"
+  #   environment:
+  #     - "SERVER_HOST=http://qanary-pipeline"
+  #     - "SERVER_PORT=40111"
+  #     - "STARDOG_URL=http://admin:admin@demos.swe.htwk-leipzig.de:40100"
+  #     - "STARDOG_USERNAME=admin"
+  #     - "STARDOG_PASSWORD=admin"
+
+  # Rasa start as server to accept api calls from frontend
+  rasa:
+    container_name: rasa
+    networks:
+      - rasa-network
+    ports:
+      - "5005:5005"
+    build:
+      context: ./rasa
+      dockerfile: Dockerfile
+    command: >
+      run --enable-api --cors "*"
+
+  # Rasa action server to handle custom actions
+  rasa_action_server:
+    container_name: rasa_action_server
+    networks:
+      - rasa-network
+    ports:
+      - "5055:5055"
+    build:
+      context: ./rasa/actions
+      dockerfile: Dockerfile
+
+  # Rasa frontend to interact with the bot
+  frontend:
+    container_name: rasa_ui
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - rasa-network
+
+networks:
+  rasa-network:
+    external: false

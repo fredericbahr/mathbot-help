@@ -1,0 +1,18 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Intent 1
+  steps:
+  - intent: example_intent_1
+  - action: action_intent_1
+
+- rule: Intent 2
+  steps:
+  - intent: example_intent_2
+  - action: action_intent_2

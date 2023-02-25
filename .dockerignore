@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.git
+# Any
+**/.next
+**/coverage
+**/dist
+**/node_modules
+
+# Rasa
+**/models
+rasa/.rasa/cache

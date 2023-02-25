@@ -1,0 +1,1 @@
+Eure Qanary Kompnenten irgendwie in Java mit jeweils einer eigenen Docker File
